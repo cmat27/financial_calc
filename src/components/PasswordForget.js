@@ -5,7 +5,7 @@ import {auth} from '../firebase';
 import * as routes from '../constants/routes';
 
 const PasswordForgetPage =()=>
-    <div>
+    <div class="webForm">
         <h1> Password Reset </h1>
         <PasswordForgetForm/>
     </div>
@@ -49,12 +49,14 @@ const PasswordForgetPage =()=>
             return(
                 <form onSubmit={this.onSubmit}>
                     <input 
+                        rel="userInput"
                         value={this.state.email}
                         onChange ={event => this.setState(byPropKey('email', event.target.value))}
                         type="text"
                         placeholder="Email Address"
                     />
-                    <button disabled={isInvalid} type="submit"> Reset Password </button>
+                    <br/>
+                    <button rel="primaryButton" disabled={isInvalid} type="submit"> Reset Password </button>
 
                     {error && <p>{error.message}</p>}
                 </form>
@@ -64,7 +66,7 @@ const PasswordForgetPage =()=>
 
     const PasswordForgetLink =()=> 
     <p>
-        <Link to={routes.PASSWORD_FOGET}>Forgot Password</Link>
+        <Link rel="redirectLink" to={routes.PASSWORD_FOGET}>Forgot Password</Link>
     </p>
 
     export default PasswordForgetPage;

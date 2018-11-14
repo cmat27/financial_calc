@@ -8,8 +8,8 @@ import {auth} from '../firebase';
 import * as routes from '../constants/routes';
 
 const SignInPage = ({history})=>
-<div class="landing">
-    <h1> Sign In</h1>
+<div class="webForm">
+    <h1> Central Desk </h1>
     <SignInForm history={history}/>
     <PasswordForgetLink />
     <SignUpLink/>
@@ -48,6 +48,7 @@ const SignInPage = ({history})=>
                     })
                     .catch(error=>{
                         this.setState(byPropKey('error', error));
+                        alert('fail');
                     });
                 event.preventDefault();
             }
@@ -66,21 +67,26 @@ const SignInPage = ({history})=>
 
             return (
                 <form onSubmit={this.onSubmit}>
-                    <input
+                   
+                   <input 
+                        rel="userInput"
                         value={email}
                         onChange ={event=> this.setState(byPropKey('email', event.target.value))}
                         type="text"
                         placeholder="Email Address"
-                    />
+                    />   
+                    
 
+                    <br/>
                     <input 
+                        rel="userInput"
                         value = {password}
                         onChange = {event => this.setState(byPropKey('password', event.target.value))}
                         type="text"
                         placeholder="password"
                     />
-
-                    <button disabled ={isValid} type ="submit">
+                    
+                    <button disabled ={isValid} type ="submit" rel="primaryButton" >
                             Sign In
                     </button>
 

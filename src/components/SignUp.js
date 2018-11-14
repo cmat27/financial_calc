@@ -7,7 +7,7 @@ import { auth } from '../firebase';
 
 
 const SignUpPage =({history})=>
-<div>
+<div class ="webForm"> 
     <h1> Sign Up</h1>
     <SignUpForm history={history} />
 </div>
@@ -70,30 +70,38 @@ class SignUpForm extends Component{
         return(
             <form onSubmit={this.onSubmit}>
                 <input
+                    rel="userInput"
                     value={username}
                     onChange={event=>this.setState(byPropKey('username', event.target.value))}
                     type="text"
                     placeholder="Full Name"
                 />
+                <br/>
                 <input
+                    rel="userInput"
                     value={email}
                     onChange={event=>this.setState(byPropKey('email', event.target.value))}
                     type="text"
                     placeholder="Email Address"
                 />
+                <br/>
                 <input
+                    rel="userInput"
                     value={passwordOne}
                     onChange={event=>this.setState(byPropKey('passwordOne', event.target.value))}
                     type="text"
                     placeholder="Password"
                 />
+                <br/>
                 <input
+                    rel="userInput"
                     value={passwordTwo}
                     onChange={event=>this.setState(byPropKey('passwordTwo', event.target.value))}
                     type="text"
                     placeholder="Confirm Password"
                 />
-                <button disabled={isInvalid} type="submit">Sign Up</button>
+                <br/>
+                <button rel="primaryButton" disabled={isInvalid} type="submit">Sign Up</button>
 
                 {error && <p>{error.message}</p>}
 
@@ -104,8 +112,8 @@ class SignUpForm extends Component{
 
 const SignUpLink =()=>
 <p>
-    Don't have an account? {''}
-    <Link to={routes.SIGN_UP}>Sign Up</Link>
+    {/* <span rel="shortMsg">Don't have an account? {''}</span> */}
+    <Link rel="redirectLink"  to={routes.SIGN_UP}>Sign Up</Link>
 </p>
 
 export default withRouter(SignUpPage);
