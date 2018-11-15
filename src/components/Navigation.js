@@ -13,20 +13,28 @@ const Navigation = () =>
     </AuthUserContext.Consumer>
 
 const NavigationAuth = () =>
-    <ul>
-        <li><Link to={routes.SIGN_IN}>Sign In</Link></li>
-        <li><Link to={routes.SIGN_UP}>Sign Up</Link></li>
-        <li><Link to={routes.LANDING}>Landing</Link></li>
-        <li><Link to={routes.HOME}>Home</Link></li>
-        <li><Link to={routes.ACCOUNT}> Account</Link></li>
-        <li> <SignOutButtom />
-        </li>
-    </ul>
+    <div class="tabs">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+        <ul rel="navLink">
+            <li><Link to={routes.HOME} >Home</Link></li>
+            <li><Link to={routes.ACCOUNT} > Account</Link></li>
+            <li> <SignOutButtom />
+            </li>
+        </ul>
+
+    </div>
+    
+
+
 
 const NavigationNonAuth = () =>
     <ul>
-        {/* <li><Link to={routes.LANDING}>Landing</Link></li>
-        <li><Link to={routes.SIGN_IN}>Sign In</Link></li> */}
+        <li><Link to={routes.SIGN_IN} rel="navLink">Sign In</Link></li>
+        <li><Link to={routes.SIGN_UP} rel="navLink">Sign Up</Link></li>
+        <li><Link to={routes.LANDING} rel="navLink">Landing</Link></li>
     </ul>
 
 

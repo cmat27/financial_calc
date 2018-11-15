@@ -73,7 +73,7 @@ const SignInPage = ({history})=>
                         value={email}
                         onChange ={event=> this.setState(byPropKey('email', event.target.value))}
                         type="text"
-                        placeholder="Email Address"
+                        placeholder="test1@hotmail.com" 
                     />   
                     
 
@@ -83,7 +83,7 @@ const SignInPage = ({history})=>
                         value = {password}
                         onChange = {event => this.setState(byPropKey('password', event.target.value))}
                         type="text"
-                        placeholder="password"
+                        placeholder="testADD123"
                     />
                     
                     <button disabled ={isValid} type ="submit" rel="primaryButton" >

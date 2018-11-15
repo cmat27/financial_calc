@@ -66,3 +66,124 @@ button[rel="primaryButton"] {
   background: #068fce;
   opacity: 0.9;
 }
+
+.container {
+  border: 2px solid green;
+  background: green;
+}
+
+.tabs {
+  display: block;
+  width: 52px;
+  height: 40px;
+  position: relative;
+  border-radius: 50%;
+  padding-top: 16px;
+  padding-right: 4px;
+  padding-bottom: 0px;
+  /*     padding-left: 12px; */
+  top: 4px;
+  left: 40px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 501;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.tabs input {
+  display: block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 502; /* and place it over the hamburger */
+
+  -webkit-touch-callout: none;
+}
+
+.tabs span {
+  margin-left: 12px;
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: #ffffff;
+  border-radius: 3px;
+
+  z-index: 501;
+
+  transform-origin: 4px 0px;
+
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1),
+    background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+}
+
+span:first-child {
+  transform-origin: 0% 0%;
+}
+
+.tabs span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+.tabs input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #f70588;
+}
+
+.tabs input:checked ~ span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * Ohyeah and the last one should go the other direction
+ */
+.tabs input:checked ~ span:nth-last-child(2) {
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+.tabs [rel="navLink"] {
+  position: absolute;
+  width: auto;
+  height: auto;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  border-radius: 0 180px 180px 0px;
+  border: 1px solid lightgreen;
+
+  background: #ededed;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+}
+
+.tabs [rel="navLink"] li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+/*
+ * And let's slide it in from the left
+ */
+.tabs input:checked ~ ul {
+  transform: none;
+}
+
+.navbar {
+  height: 0px;
+}

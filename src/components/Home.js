@@ -2,7 +2,7 @@
 import React from 'react';
 
 const HomePage =()=>
-<div>
+<div class="container" rel="test">
     <h1> Home Page</h1>
 </div>
 

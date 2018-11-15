@@ -1,7 +1,7 @@
 
 import React, {Component} from 'react';
 import {auth} from '../firebase';
-import { isValidFormat } from '@firebase/util';
+/* import { isValidFormat } from '@firebase/util'; */
 
 const byPropKey = (propertyName, value) => ()=>({
     [propertyName]: value,
