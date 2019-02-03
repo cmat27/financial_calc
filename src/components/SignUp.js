@@ -1,124 +1,130 @@
+import React, { Component } from "react";
+import { Link, withRouter } from "react-router-dom";
+import * as routes from "../constants/routes";
+import { auth } from "../firebase";
+import {
+  WebFormContainer,
+  FormTitle,
+  PrimaryButton
+} from "../styled/forms";
+import Divider from "@material-ui/core/Divider";
+import TextField from "@material-ui/core/TextField";
 
-import React, {Component} from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import * as routes from '../constants/routes';
-import { auth } from '../firebase';
-
-
-
-const SignUpPage =({history})=>
-<div class ="webForm"> 
-    <h1> Sign Up</h1>
+const SignUpPage = ({ history }) => (
+  <WebFormContainer>
+    <FormTitle> Sign Up</FormTitle>
+    <Divider />
     <SignUpForm history={history} />
-</div>
-const INITIAL_STATE={
-    username:'',
-    email:'',
-    passwordOne:'',
-    passwordTwo:'',
-    error:null,
-}
+  </WebFormContainer>
+);
+const INITIAL_STATE = {
+  username: "",
+  email: "",
+  passwordOne: "",
+  passwordTwo: "",
+  error: null
+};
 
-const byPropKey = (propertyName, value)=>()=>({
-    [propertyName]: value,
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value
 });
 
-class SignUpForm extends Component{
-    constructor(props){
-        super(props);
+class SignUpForm extends Component {
+  constructor(props) {
+    super(props);
 
-        this.state ={...INITIAL_STATE};
-    }
+    this.state = { ...INITIAL_STATE };
+  }
 
-    onSubmit =(event) => {
-        const{
-            username,
-            email,
-            passwordOne,
-        }=this.state;
+  onSubmit = event => {
+    const { email, passwordOne } = this.state;
 
-        const{history,}=this.props;
+    const { history } = this.props;
 
-        auth.doCreateUserWithEmailAndPassword(email, passwordOne)
-            .then(authUser => {
-                this.setState({...INITIAL_STATE});
-                history.push(routes.HOME);
-            })
-            .catch(error=>{
-                this.setState(byPropKey('erro',error));
-            });
+    auth
+      .doCreateUserWithEmailAndPassword(email, passwordOne)
+      .then(authUser => {
+        this.setState({ ...INITIAL_STATE });
+        history.push(routes.HOME);
+      })
+      .catch(error => {
+        this.setState(byPropKey("erro", error));
+      });
 
-            event.preventDefault();
+    event.preventDefault();
+  };
+  render() {
+    const { username, email, passwordOne, passwordTwo, error } = this.state;
 
-    }
-    render(){
-        const{
-            username,
-            email,
-            passwordOne,
-            passwordTwo,
-            error,
-        }= this.state;
+    const isInvalid =
+      passwordOne !== passwordTwo ||
+      passwordOne === "" ||
+      email === "" ||
+      username === "";
 
-        const isInvalid =
-            passwordOne !== passwordTwo ||
-            passwordOne === '' ||
-            email===''||
-            username==='';
-        
+    return (
+      <form onSubmit={this.onSubmit}>
+        <TextField
+          id="name"
+          label="Full Name"
+          margin="dense"
+          fullWidth="true"
+          onChange={event =>
+            this.setState(byPropKey("username", event.target.value))
+          }
+        />
 
-        return(
-            <form onSubmit={this.onSubmit}>
-                <input
-                    rel="userInput"
-                    value={username}
-                    onChange={event=>this.setState(byPropKey('username', event.target.value))}
-                    type="text"
-                    placeholder="Full Name"
-                />
-                <br/>
-                <input
-                    rel="userInput"
-                    value={email}
-                    onChange={event=>this.setState(byPropKey('email', event.target.value))}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <br/>
-                <input
-                    rel="userInput"
-                    value={passwordOne}
-                    onChange={event=>this.setState(byPropKey('passwordOne', event.target.value))}
-                    type="text"
-                    placeholder="Password"
-                />
-                <br/>
-                <input
-                    rel="userInput"
-                    value={passwordTwo}
-                    onChange={event=>this.setState(byPropKey('passwordTwo', event.target.value))}
-                    type="text"
-                    placeholder="Confirm Password"
-                />
-                <br/>
-                <button rel="primaryButton" disabled={isInvalid} type="submit">Sign Up</button>
+        <TextField
+          id="email"
+          label="E-mail"
+          margin="dense"
+          fullWidth="true"
+          value={email}
+          onChange={event =>
+            this.setState(byPropKey("email", event.target.value))
+          }
+        />
 
-                {error && <p>{error.message}</p>}
+        <TextField
+          id="passwordOne"
+          label="Password"
+          margin="dense"
+          fullWidth="true"
+          value={passwordOne}
+          onChange={event =>
+            this.setState(byPropKey("passwordOne", event.target.value))
+          }
+        />
 
-            </form>
-        );
-    }
+        <TextField
+          id="passwordOne"
+          label="Confirm Password"
+          margin="dense"
+          fullWidth="true"
+          value={passwordTwo}
+          onChange={event =>
+            this.setState(byPropKey("passwordTwo", event.target.value))
+          }
+        />
+        <PrimaryButton rel="primaryButton" disabled={isInvalid} type="submit">
+          Sign Up
+        </PrimaryButton>
+
+        {error && <p>{error.message}</p>}
+      </form>
+    );
+  }
 }
 
-const SignUpLink =()=>
-<p>
+const SignUpLink = () => (
+  <p>
     {/* <span rel="shortMsg">Don't have an account? {''}</span> */}
-    <Link rel="redirectLink"  to={routes.SIGN_UP}>Sign Up</Link>
-</p>
+    <Link rel="redirectLink" to={routes.SIGN_UP}>
+      Sign Up
+    </Link>
+  </p>
+);
 
 export default withRouter(SignUpPage);
 
-export{
-    SignUpForm,
-    SignUpLink,
-    }
+export { SignUpForm, SignUpLink };

@@ -1,13 +1,19 @@
 
 import React from 'react';
-import * as routes from '../constants/routes';
-import { Link } from 'react-router-dom';
-
+import {InnerBox, LandingTitle} from '../styled/forms'
+import InsetList from '../components/calculationList'
+  
 
 const LandingPage =()=>
 <div class="landing">
-    <h1> Chores list </h1>
-    <Link to={routes.SIGN_IN}>Sign In</Link>
+    <LandingTitle> 
+        <InnerBox><blockquote>
+        “Personal finance is only 20% head knowledge. It’s 80% behavior!” 
+        </blockquote>–Dave Ramsey
+        </InnerBox>
+    </LandingTitle>
+
+    <InsetList/>
 </div>
 
 export default LandingPage

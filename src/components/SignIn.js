@@ -1,104 +1,98 @@
+import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { SignUpLink } from "./SignUp";
+import { PasswordForgetLink } from "./PasswordForget";
+import { auth } from "../firebase";
+import * as routes from "../constants/routes";
+import {
+  WebFormContainer,
+  FormTitle,
+  PrimaryButton
+} from "../styled/forms";
+import Divider from "@material-ui/core/Divider";
+import TextField from "@material-ui/core/TextField";
 
-import React, {Component} from 'react';
-import {withRouter} from 'react-router-dom';
-
-import {SignUpLink} from './SignUp';
-import {PasswordForgetLink} from './PasswordForget';
-import {auth} from '../firebase';
-import * as routes from '../constants/routes';
-
-const SignInPage = ({history})=>
-<div class="webForm">
-    <h1> Central Desk </h1>
-    <SignInForm history={history}/>
+const SignInPage = ({ history }) => (
+  <WebFormContainer>
+    <FormTitle> Login </FormTitle>
+    <Divider />
+    <SignInForm history={history} />
+    <Divider />
     <PasswordForgetLink />
-    <SignUpLink/>
-</div>
-    const byPropKey = (propertyName, value) =>()=>({
-        [propertyName]: value,
-    });
+    <SignUpLink />
+  </WebFormContainer>
+);
+const byPropKey = (propertyName, value) => () => ({
+  [propertyName]: value
+});
 
-    const INITIAL_STATE ={
-        email: '',
-        password:'',
-        error: null,
-    };
+const INITIAL_STATE = {
+  email: "",
+  password: "",
+  error: null
+};
 
-    class SignInForm extends Component{
-            constructor(props){
-                super(props);
+class SignInForm extends Component {
+  constructor(props) {
+    super(props);
 
-                this.state={...INITIAL_STATE};
-            }
+    this.state = { ...INITIAL_STATE };
+  }
 
-            onSubmit = (event)=>{
-                const{
-                    email,
-                    password,
-                }= this.state;
+  onSubmit = event => {
+    const { email, password } = this.state;
 
-                const {
-                    history,
-                } = this.props;
+    const { history } = this.props;
 
-                auth.doSignInWithEmailAndPassword(email, password)
-                    .then(() => {
-                        this.setState({ ...INITIAL_STATE});
-                        history.push(routes.HOME);
-                    })
-                    .catch(error=>{
-                        this.setState(byPropKey('error', error));
-                        alert('fail');
-                    });
-                event.preventDefault();
-            }
+    auth
+      .doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ ...INITIAL_STATE });
+        history.push(routes.HOME);
+      })
+      .catch(error => {
+        this.setState(byPropKey("error", error));
+        alert("fail");
+      });
+    event.preventDefault();
+  };
 
-            render(){
-                const{
-                    email,
-                    password,
-                    error,
-                }= this.state;
-            
+  render() {
+    const { email, password, error } = this.state;
 
-            const isValid =
-                 password === '' ||
-                 email === '';
+    const isValid = password !== "" || email !== "";
 
-            return (
-                <form onSubmit={this.onSubmit}>
-                   
-                   <input 
-                        rel="userInput"
-                        value={email}
-                        onChange ={event=> this.setState(byPropKey('email', event.target.value))}
-                        type="text"
-                        placeholder="test1@hotmail.com" 
-                    />   
-                    
+    return (
+      <form onSubmit={this.onSubmit}>
+        <TextField
+          id="user-name"
+          label="User Name"          
+          margin="dense"
+          fullWidth="true"
+          onChange={event =>
+            this.setState(byPropKey("email", event.target.value))
+          }
 
-                    <br/>
-                    <input 
-                        rel="userInput"
-                        value = {password}
-                        onChange = {event => this.setState(byPropKey('password', event.target.value))}
-                        type="text"
-                        placeholder="testADD123"
-                    />
-                    
-                    <button disabled ={isValid} type ="submit" rel="primaryButton" >
-                            Sign In
-                    </button>
+        />
+        <TextField
+          id="password"
+          label="Password"
+          margin="dense"
+          fullWidth="true"
+          onChange={event =>
+            this.setState(byPropKey("password", event.target.value))
+          }
+        />
+        <PrimaryButton disabled={!isValid} type="submit" rel="primaryButton">
+          Sign In
+        </PrimaryButton>
 
-                    {error && <p>{error.message}</p>}
-
-                </form>
-            );
-    }
+        {error && <p>{error.message}</p>}
+      </form>
+    );
+  }
 }
 
-    export default withRouter(SignInPage);
+export default withRouter(SignInPage);
 
-    export {
-      SignInForm,
-    };
+export { SignInForm };

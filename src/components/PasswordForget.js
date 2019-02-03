@@ -3,12 +3,20 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {auth} from '../firebase';
 import * as routes from '../constants/routes';
+import {
+    WebFormContainer,
+    FormTitle,
+    PrimaryButton
+  } from "../styled/forms";
+  import Divider from "@material-ui/core/Divider";
+  import TextField from "@material-ui/core/TextField";
 
 const PasswordForgetPage =()=>
-    <div class="webForm">
-        <h1> Password Reset </h1>
+    <WebFormContainer>
+        <FormTitle> Password Reset </FormTitle>
+        <Divider/>
         <PasswordForgetForm/>
-    </div>
+    </WebFormContainer>
 
     const byPropKey =(propertyName, value)=> () =>({
         [propertyName]: value,
@@ -48,15 +56,18 @@ const PasswordForgetPage =()=>
 
             return(
                 <form onSubmit={this.onSubmit}>
-                    <input 
-                        rel="userInput"
-                        value={this.state.email}
-                        onChange ={event => this.setState(byPropKey('email', event.target.value))}
-                        type="text"
-                        placeholder="Email Address"
-                    />
-                    <br/>
-                    <button rel="primaryButton" disabled={isInvalid} type="submit"> Reset Password </button>
+
+
+<TextField
+          id="email"
+          label="E-mail"
+          margin="dense"
+          fullWidth="true"
+          onChange ={event => this.setState(byPropKey('email', event.target.value))}
+
+        />
+
+                    <PrimaryButton rel="primaryButton" disabled={isInvalid} type="submit"> Reset Password </PrimaryButton>
 
                     {error && <p>{error.message}</p>}
                 </form>

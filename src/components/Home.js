@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 const HomePage =()=>
@@ -6,4 +5,11 @@ const HomePage =()=>
     <h1> Home Page</h1>
 </div>
 
-export default HomePage
+
+const homeContainer =()=>
+<div class="homeContainer">
+    <h1>Welcome back to your account</h1>
+    <HomePage/>
+</div>
+
+export default homeContainer
